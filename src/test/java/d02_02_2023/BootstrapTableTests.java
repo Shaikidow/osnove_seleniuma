@@ -91,7 +91,7 @@ public class BootstrapTableTests {
         Assert.assertEquals(driver.getTitle(), "Table with Edit and Update Data - Bootsnipp.com",
                 "Incorrect page title.");
 
-        int tableRowsOld = driver.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size();
+        int tableRowsOld = driver.findElements(By.xpath("//tbody/tr[td]")).size();
 
         driver.findElement(By.xpath("//tr[@id='d1']//button[@data-target='#delete']"))
                 .click();
@@ -102,11 +102,7 @@ public class BootstrapTableTests {
         driver.findElement(By.id("del")).click();
         wait.until(ExpectedConditions.invisibilityOf(deleteData));
 
-        int tableRowsNew = driver.findElement(By.tagName("tbody")).findElements(By.tagName("tr")).size();
-
-//      Zanimljivo, ali ovo ne radi, jer iz nekog razloga, čim ovaj test obriše gornji red,
-//      stranica kao da se refresh-uje i opet ima dva originalna reda. Možda i nije refresh, ali tako se ponaša.
-//      Ne znam da li je to bila poenta ovog zadatka, ali ostaviću to kao bag. Screenshot reflektuje to stanje stranice.
+        int tableRowsNew = driver.findElements(By.xpath("//tbody/tr[td]")).size();
 
         Assert.assertEquals(tableRowsNew, tableRowsOld - 1,
                 "New number of table rows not smaller by 1.");
